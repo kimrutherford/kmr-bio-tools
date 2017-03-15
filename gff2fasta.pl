@@ -1,3 +1,5 @@
+#!/usr/bin/env perl
+
 #taken from https://www.biostars.org/p/46281/ and modified as needed 10/15/15
 
 # also modified by: Kim Rutherford <kmr@bioinformatics.nz> 2017-03-16
@@ -9,12 +11,10 @@ use Bio::Seq;
 use Bio::SeqIO;
 use Bio::DB::Fasta;
 
-#add a help message here
-#my $num_args=$#ARGV + 1;
-#if ($num_args != 4) {
-#	print "\nUsage: gff2perl Genome.fasta Annotation.gff OutputPrefix \n\n";
-#	exit;
-#}
+if (@ARGV != 3) {
+  warn "Needs four arguments\n\nUsage: gff2perl Genome.fasta Annotation.gff OutputPrefix \n\n";
+  exit 1;
+}
 
 $| = 1;    # Flush output
 my $outfile_cds = Bio::SeqIO->new( -format => 'fasta', -file => ">$ARGV[2].cds.fasta" );
@@ -31,7 +31,7 @@ my $outfile_exon = Bio::SeqIO->new( -format => 'fasta', -file => ">$ARGV[2].exon
 # protein - cds translated (includes a * as the stop codon)
 # gene - the entire gene sequence (including UTRs and introns)
 # upstream1000 - the 1000 upstream region of the gene (likely including the promoter)
-# downstream1000 - the 1000 downstream region of the gene (likely including the promoter)
+# downstream1000 - the 1000 downstream region of the gene
 
 ### First, index the genome
 my $file_fasta = $ARGV[0];

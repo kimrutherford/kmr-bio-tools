@@ -48,6 +48,7 @@ my $mRNA_name;
 my $frame;
 open GFF, "<$ARGV[1]" or die $!;
 while ( my $line = <GFF> ) {
+    next if $line =~ /^#/;
     chomp $line;
     my @array = split( "\t", $line );
     my $type = $array[2];

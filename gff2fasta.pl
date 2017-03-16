@@ -182,7 +182,7 @@ while ( my $line = <GFF> ) {
             $output_exon = $output_exon->revcom();
         }
 	#write to file
-        if (length($mergedEXON_seq) != 0) {
+        if ($mergedEXON_seq && length($mergedEXON_seq) != 0) {
         $outfile_exon->write_seq($output_exon);
         }
 
